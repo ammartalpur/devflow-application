@@ -7,31 +7,27 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { type Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { Inter, Space_Grotesk } from "next/font/google";
+
 import localFont from "next/font/local";
 
 import "./globals.css";
 
-const geistSans = GeistSans;
-const geistMono = GeistMono;
-
-const inter = localFont({
-  src: "./fonts/InterVF.ttf",
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-inter",
-  weight: "100 200 300 400 500 700 800 900",
 });
-
-const spaceGrotesk = localFont({
-  src: "./fonts/SpaceGroteskVF.ttf",
-  variable: "--font-space-grotesk",
-  weight: "300 400 500 700",
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-spaceGrotesk",
 });
 
 export const metadata: Metadata = {
   title: "DevFlow",
   description:
-    "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms, data structures, and more.",
+    "A community-driven platform for asking and answering programming questions. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, algorithms , data structures, and more.",
   icons: {
     icon: "/images/site-logo.svg",
   },
@@ -58,13 +54,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        elements: {
+          formButtonPrimary: "primary-gradent",
+          footerActionLink: "primary-text-gradient hover:text-primary-500",
+        },
+      }}
+    >
       <html lang="en">
-        <body
-          className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
-        >
+        <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
           <Header />
-          {/* @ts-expect-error Server Component */}
           {children}
         </body>
       </html>
